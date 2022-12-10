@@ -1,0 +1,48 @@
+body{
+  /* https://www.colordic.org/colorsample/2324 */
+  background-color: rgb(234, 244, 252);
+  /* https://googlefonts.github.io/japanese/#mplus1p */
+  font-family: "M PLUS 1p";
+}
+
+h2, h3{
+  /* https://www.colordic.org/colorsample/2072 */
+  color: rgb(32, 55, 68);
+  margin-bottom: 8px;
+}
+
+#box {
+  text-align: start;
+  margin: 16px;
+}
+
+#field table {
+  border-collapse: collapse;
+  font-size: 120%;
+  font-weight: bold;
+  display: inline-block;
+}
+
+#field table td {
+  /* https://www.colordic.org/colorsample/2340 */
+  background-color: rgb(233, 223, 229);
+  /* https://www.colordic.org/colorsample/2072 */
+  border: 1px solid rgb(32, 55, 68);
+  width: 48px;
+  min-width: 48px;
+  height: 48px;
+  min-height: 48px;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+
+button {
+  width: 200px;
+  height: 48px;
+  /* https://www.colordic.org/colorsample/2363 */
+  background-color:rgb(192, 198, 201);
+  font-weight: bold;
+  text-align: center;
+  border-radius: 8px;
+}
