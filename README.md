@@ -4,6 +4,11 @@ Here you go🏃
 
 https://okuzawats.github.io/javascript-minesweeper/
 
+## Usage
+
+- left click on a cell: open it
+- right click on a cell: flag it
+
 ## References
 
 - [Build a Minesweeper game using JavaScript](https://iq.opengenus.org/minesweeper-game-using-js/)
