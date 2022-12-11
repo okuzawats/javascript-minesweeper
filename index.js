@@ -150,16 +150,16 @@ function addCellListeners(td, i, j) {
 
         if (event.button === 0) {
             // 左クリックの処理
-            if (this.flagged) { return; }
+            if (this.is_flagged) { return; }
             handleCellClick(this, i, j)
         } else if (event.button === 2) {
             // 右クリックの処理
-            if (this.flagged) {
+            if (this.is_flagged) {
                 this.textContent = '';
-                this.flagged = false;
+                this.is_flagged = false;
             } else {
                 this.textContent = components.flag;
-                this.flagged = true;
+                this.is_flagged = true;
             }
         }
     });
@@ -177,9 +177,9 @@ function addCellListeners(td, i, j) {
  * @param {*} j 縦方向のインデックス
  */
 function handleCellClick(cell, i, j) {
-    if (!components.alive || cell.flagged) { return; }
+    if (!components.alive || cell.is_flagged) { return; }
 
-    cell.clicked = true;
+    cell.is_clicked = true;
 
     if (components.bombs[i][j]) {
         // 対象のセルが爆弾だった時
@@ -236,7 +236,7 @@ function clickAdjacentCells(row, col) {
 
             let cell = document.getElementById(cellID(row + i, col + j));
             // クリック済みの場合、フラグ済みの場合はスキップ
-            if (!!cell && !cell.clicked && !cell.flagged) {
+            if (!!cell && !cell.is_clicked && !cell.is_flagged) {
                 handleCellClick(cell, row + i, col + j);
             }
         }
@@ -253,7 +253,7 @@ function clickAllCells(num_of_rows, num_of_cols) {
         for (let j = 0; j < num_of_cols; j++) {
             let cell = document.getElementById(cellID(i, j));
             // クリック済みの場合はスキップ
-            if (!!cell && !cell.clicked) {
+            if (!!cell && !cell.is_clicked) {
                 if (components.bombs[i][j]) {
                     // 対象のセルが爆弾だった時
                     cell.style.backgroundColor = components.is_bomb;
@@ -273,23 +273,24 @@ function clickAllCells(num_of_rows, num_of_cols) {
     }
 }
 
+/**
+ * ゲームの勝利判定結果を返す。
+ * @returns boolean ゲームに勝利していればtrue、それ以外はfalse
+ */
 function is_win() {
     let num_of_rows = components.num_of_rows;
     let num_of_cols = components.num_of_cols;
-    var count = 0;
+    // 爆弾の置かれていないセルで、かつまだクリックされていないセルがあれば、
+    // まだ勝利判定を満たしていないためfalseを返す。
     for (let i = 0; i < num_of_rows; i++) {
         for (let j = 0; j < num_of_cols; j++) {
             if (components.bombs[i][j]) { continue; }
             let cell = document.getElementById(cellID(i, j));
-            if (!!cell && !cell.clicked) {
+            if (!!cell && !cell.is_clicked) {
                 return false;
-                // count++;
-                // console.log(count);
-                // continue;
             }
         }
     }
-    console.log(true);
     return true;
 }
 
