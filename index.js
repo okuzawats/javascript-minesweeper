@@ -47,6 +47,11 @@ function startGame() {
     document.getElementById('field').appendChild(table);
 }
 
+function gameWin() {
+    components.alive = false;
+    document.getElementById('won').style.display = "block";
+}
+
 /**
  * 爆弾を踏んだ場合は全てのセルを開き、ゲームオーバーにする。
  */
@@ -193,6 +198,9 @@ function handleCellClick(cell, i, j) {
             // 周辺のセルに爆弾がない場合
             clickAdjacentCells(i, j);
         }
+        if (is_win()) {
+            gameWin();
+        }
     }
 }
 
@@ -263,6 +271,26 @@ function clickAllCells(num_of_rows, num_of_cols) {
             }
         }
     }
+}
+
+function is_win() {
+    let num_of_rows = components.num_of_rows;
+    let num_of_cols = components.num_of_cols;
+    var count = 0;
+    for (let i = 0; i < num_of_rows; i++) {
+        for (let j = 0; j < num_of_cols; j++) {
+            if (components.bombs[i][j]) { continue; }
+            let cell = document.getElementById(cellID(i, j));
+            if (!!cell && !cell.clicked) {
+                return false;
+                // count++;
+                // console.log(count);
+                // continue;
+            }
+        }
+    }
+    console.log(true);
+    return true;
 }
 
 /**

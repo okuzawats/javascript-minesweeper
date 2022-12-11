@@ -12,9 +12,18 @@
   <div id="box">
     <h2>Minesweeper💣</h2>
     <div id="field"></div>
+    <div id="won" style="display: none;">
+        <h3>Congratulations!🎉</h3>
+        <p>You won the game!</p>
+        <button id="new-game-button" type="button" onclick="reload()">
+          Start Again
+        </button>
+      </div>         
     <div id="lost" style="display: none;">
-    <h3>BOOOOM!</h3>
-    <button id="new-game-button" type="button" onclick="reload()">Start Again</button>
+      <h3>BOOOOM!</h3>
+      <button id="new-game-button" type="button" onclick="reload()">
+        Start Again
+      </button>
     </div>         
   </div>
 </body>
