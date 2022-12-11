@@ -179,7 +179,7 @@ function addCellListeners(td, i, j) {
 function handleCellClick(cell, i, j) {
     if (!components.alive || cell.is_flagged) { return; }
 
-    cell.clicked = true;
+    cell.is_clicked = true;
 
     if (components.bombs[i][j]) {
         // 対象のセルが爆弾だった時
@@ -236,7 +236,7 @@ function clickAdjacentCells(row, col) {
 
             let cell = document.getElementById(cellID(row + i, col + j));
             // クリック済みの場合、フラグ済みの場合はスキップ
-            if (!!cell && !cell.clicked && !cell.is_flagged) {
+            if (!!cell && !cell.is_clicked && !cell.is_flagged) {
                 handleCellClick(cell, row + i, col + j);
             }
         }
@@ -253,7 +253,7 @@ function clickAllCells(num_of_rows, num_of_cols) {
         for (let j = 0; j < num_of_cols; j++) {
             let cell = document.getElementById(cellID(i, j));
             // クリック済みの場合はスキップ
-            if (!!cell && !cell.clicked) {
+            if (!!cell && !cell.is_clicked) {
                 if (components.bombs[i][j]) {
                     // 対象のセルが爆弾だった時
                     cell.style.backgroundColor = components.is_bomb;
@@ -286,7 +286,7 @@ function is_win() {
         for (let j = 0; j < num_of_cols; j++) {
             if (components.bombs[i][j]) { continue; }
             let cell = document.getElementById(cellID(i, j));
-            if (!!cell && !cell.clicked) {
+            if (!!cell && !cell.is_clicked) {
                 return false;
             }
         }
