@@ -280,6 +280,8 @@ function clickAllCells(num_of_rows, num_of_cols) {
 function is_win() {
     let num_of_rows = components.num_of_rows;
     let num_of_cols = components.num_of_cols;
+    // 爆弾の置かれていないセルで、かつまだクリックされていないセルがあれば、
+    // まだ勝利判定を満たしていないためfalseを返す。
     for (let i = 0; i < num_of_rows; i++) {
         for (let j = 0; j < num_of_cols; j++) {
             if (components.bombs[i][j]) { continue; }
