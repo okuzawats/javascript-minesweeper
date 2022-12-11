@@ -150,16 +150,16 @@ function addCellListeners(td, i, j) {
 
         if (event.button === 0) {
             // 左クリックの処理
-            if (this.flagged) { return; }
+            if (this.is_flagged) { return; }
             handleCellClick(this, i, j)
         } else if (event.button === 2) {
             // 右クリックの処理
-            if (this.flagged) {
+            if (this.is_flagged) {
                 this.textContent = '';
-                this.flagged = false;
+                this.is_flagged = false;
             } else {
                 this.textContent = components.flag;
-                this.flagged = true;
+                this.is_flagged = true;
             }
         }
     });
@@ -177,7 +177,7 @@ function addCellListeners(td, i, j) {
  * @param {*} j 縦方向のインデックス
  */
 function handleCellClick(cell, i, j) {
-    if (!components.alive || cell.flagged) { return; }
+    if (!components.alive || cell.is_flagged) { return; }
 
     cell.clicked = true;
 
@@ -236,7 +236,7 @@ function clickAdjacentCells(row, col) {
 
             let cell = document.getElementById(cellID(row + i, col + j));
             // クリック済みの場合、フラグ済みの場合はスキップ
-            if (!!cell && !cell.clicked && !cell.flagged) {
+            if (!!cell && !cell.clicked && !cell.is_flagged) {
                 handleCellClick(cell, row + i, col + j);
             }
         }
