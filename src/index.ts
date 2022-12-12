@@ -192,6 +192,26 @@ function addCellListeners(td, i, j) {
         handleCellClick(td, i, j)
     });
 
+    td.addEventListener('touchstart', function(event) {
+        if (!components.alive) { return; }
+
+        interval_id = setInterval(() => {
+            clearInterval(interval_id);
+            interval_id = 0;
+
+            if (components.clicked[i][j]) { return; }
+
+            // ロングクリックの処理
+            if (components.flagged[i][j]) {
+                td.textContent = '';
+                components.flagged[i][j] = false;
+            } else {
+                td.textContent = components.flag;
+                components.flagged[i][j] = true;
+            }
+        }, 1000);
+    });
+
     td.addEventListener('touchend', function(event) {
         if (!components.alive) { return; }
         clearInterval(interval_id);
