@@ -192,6 +192,15 @@ function addCellListeners(td, i, j) {
         handleCellClick(td, i, j)
     });
 
+    td.addEventListener('touchend', function(event) {
+        if (!components.alive) { return; }
+        clearInterval(interval_id);
+        interval_id = 0;
+
+        if (components.flagged[i][j]) { return; }
+        handleCellClick(td, i, j)
+    });
+
     // 右クリック押下時にコンテキストメニューが表示されるのを防ぐための処理
     td.oncontextmenu = function(event) { 
         event.preventDefault();
