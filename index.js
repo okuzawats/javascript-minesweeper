@@ -159,6 +159,9 @@ function addCellListeners(td, i, j) {
             handleCellClick(this, i, j);
         }
         else if (event.button === 2) {
+            if (components.clicked[i][j]) {
+                return;
+            }
             // 右クリックの処理
             if (components.flagged[i][j]) {
                 this.textContent = '';
@@ -171,7 +174,9 @@ function addCellListeners(td, i, j) {
         }
     });
     // 右クリック押下時にコンテキストメニューが表示されるのを防ぐための処理
-    td.oncontextmenu = function () {
+    td.oncontextmenu = function (event) {
+        event.preventDefault();
+        event.stopPropagation();
         return false;
     };
 }

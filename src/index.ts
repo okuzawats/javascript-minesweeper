@@ -170,6 +170,8 @@ function addCellListeners(td, i, j) {
             if (components.flagged[i][j]) { return; }
             handleCellClick(this, i, j)
         } else if (event.button === 2) {
+            if (components.clicked[i][j]) { return; }
+
             // 右クリックの処理
             if (components.flagged[i][j]) {
                 this.textContent = '';
