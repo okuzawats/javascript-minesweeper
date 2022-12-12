@@ -6,8 +6,8 @@ https://okuzawats.github.io/javascript-minesweeper/
 
 ## Usage
 
-- left click on a cell: open it
-- right click on a cell: flag it
+- click on a cell: open it
+- long click on a cell: flag it
 
 ## References
 
