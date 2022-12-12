@@ -162,25 +162,34 @@ function makeBoard(cells, rows, cols) {
  * @param {number} j 縦方向のインデックス
  */
 function addCellListeners(td, i, j) {
+    var interval_id = 0;
     td.addEventListener('mousedown', function(event) {
         if (!components.alive) { return; }
 
-        if (event.button === 0) {
-            // 左クリックの処理
-            if (components.flagged[i][j]) { return; }
-            handleCellClick(this, i, j)
-        } else if (event.button === 2) {
+        interval_id = setInterval(() => {
+            clearInterval(interval_id);
+            interval_id = 0;
+
             if (components.clicked[i][j]) { return; }
 
-            // 右クリックの処理
+            // ロングクリックの処理
             if (components.flagged[i][j]) {
-                this.textContent = '';
+                td.textContent = '';
                 components.flagged[i][j] = false;
             } else {
-                this.textContent = components.flag;
+                td.textContent = components.flag;
                 components.flagged[i][j] = true;
             }
-        }
+        }, 1000);
+    });
+
+    td.addEventListener('mouseup', function(event) {
+        if (!components.alive) { return; }
+        clearInterval(interval_id);
+        interval_id = 0;
+
+        if (components.flagged[i][j]) { return; }
+        handleCellClick(td, i, j)
     });
 
     // 右クリック押下時にコンテキストメニューが表示されるのを防ぐための処理
