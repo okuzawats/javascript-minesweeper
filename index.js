@@ -147,21 +147,18 @@ function createTable(num_of_rows, num_of_cols) {
  * @param {number} j 縦方向のインデックス
  */
 function addCellListeners(td, i, j) {
-    var from = 0;
-    var to = 0;
     var interval_id = 0;
     td.addEventListener('mousedown', function (event) {
         if (!components.alive) {
             return;
         }
-        from = (new Date()).getTime();
         interval_id = setInterval(function () {
             clearInterval(interval_id);
             interval_id = 0;
             if (components.clicked[i][j]) {
                 return;
             }
-            // 右クリックの処理
+            // ロングクリックの処理
             if (components.flagged[i][j]) {
                 td.textContent = '';
                 components.flagged[i][j] = false;
@@ -171,21 +168,6 @@ function addCellListeners(td, i, j) {
                 components.flagged[i][j] = true;
             }
         }, 1000);
-        // if (event.button === 0) {
-        //     // 左クリックの処理
-        //     if (components.flagged[i][j]) { return; }
-        //     handleCellClick(this, i, j)
-        // } else if (event.button === 2) {
-        //     if (components.clicked[i][j]) { return; }
-        //     // 右クリックの処理
-        //     if (components.flagged[i][j]) {
-        //         this.textContent = '';
-        //         components.flagged[i][j] = false;
-        //     } else {
-        //         this.textContent = components.flag;
-        //         components.flagged[i][j] = true;
-        //     }
-        // }
     });
     td.addEventListener('mouseup', function (event) {
         if (!components.alive) {
@@ -197,39 +179,17 @@ function addCellListeners(td, i, j) {
             return;
         }
         handleCellClick(td, i, j);
-        // to = (new Date()).getTime();
-        // let duration = to - from;
-        // if (duration / 1000 <= 1) {
-        //     if (components.flagged[i][j]) { return; }
-        //     handleCellClick(td, i, j)
-        // } else {
-        //     if (components.clicked[i][j]) { return; }
-        //     // 右クリックの処理
-        //     if (components.flagged[i][j]) {
-        //         td.textContent = '';
-        //         components.flagged[i][j] = false;
-        //     } else {
-        //         td.textContent = components.flag;
-        //         components.flagged[i][j] = true;
-        //     }
-        // }
-        // from = 0;
-        // to = 0;
-        // if (event.button === 0) {
-        //     // 左クリックの処理
-        //     if (components.flagged[i][j]) { return; }
-        //     handleCellClick(this, i, j)
-        // } else if (event.button === 2) {
-        //     if (components.clicked[i][j]) { return; }
-        //     // 右クリックの処理
-        //     if (components.flagged[i][j]) {
-        //         this.textContent = '';
-        //         components.flagged[i][j] = false;
-        //     } else {
-        //         this.textContent = components.flag;
-        //         components.flagged[i][j] = true;
-        //     }
-        // }
+    });
+    td.addEventListener('touchend', function (event) {
+        if (!components.alive) {
+            return;
+        }
+        clearInterval(interval_id);
+        interval_id = 0;
+        if (components.flagged[i][j]) {
+            return;
+        }
+        handleCellClick(td, i, j);
     });
     // 右クリック押下時にコンテキストメニューが表示されるのを防ぐための処理
     td.oncontextmenu = function (event) {
