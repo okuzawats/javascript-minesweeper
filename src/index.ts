@@ -182,7 +182,9 @@ function addCellListeners(td, i, j) {
     });
 
     // 右クリック押下時にコンテキストメニューが表示されるのを防ぐための処理
-    td.oncontextmenu = function() { 
+    td.oncontextmenu = function(event) { 
+        event.preventDefault();
+        event.stopPropagation();
         return false; 
     };
 }
